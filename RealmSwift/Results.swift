@@ -61,12 +61,9 @@ extension Int64: Bridgable {
         return (value as! NSNumber).int64Value
     }
 }
-extension NSDate: Bridgable {
-    static func bridging(_ value: Any) -> Self   {
-        func forceCastTrampoline<T, U>(_ x: T) -> U {
-            return x as! U
-        }
-        return forceCastTrampoline(value)
+extension Date: Bridgable {
+    static func bridging(_ value: Any) -> Date   {
+        return value as! Date
     }
 }
 
@@ -81,7 +78,7 @@ extension Int8: MinMaxType {}
 extension Int16: MinMaxType {}
 extension Int32: MinMaxType {}
 extension Int64: MinMaxType {}
-extension NSDate: MinMaxType {}
+extension Date: MinMaxType {}
 extension MinMaxType {
     internal static func bridging(_ value: Any) -> Self {
         return (Self.self as! Bridgable.Type).bridging(value) as! Self
